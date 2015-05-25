@@ -186,7 +186,8 @@ class GenemuFormExtension extends Extension
             'script'    => 'genemu_upload',
             'swf'       => $configs['swf'],
             'cancelImg' => $configs['cancel_img'],
-            'folder'    => $configs['folder']
+            'folder'    => $configs['folder'],
+            'urlParams' => []
         ));
 
         $container->setParameter('genemu.form.file.folder', $configs['folder']);

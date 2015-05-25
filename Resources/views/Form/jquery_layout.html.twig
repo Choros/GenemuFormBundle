@@ -419,7 +419,7 @@
         var $configs = $.extend({{ configs|merge({
             'swf':       asset(configs.swf),
             'cancelImg': asset(configs.cancelImg),
-            'uploader':  path(configs.script),
+            'uploader':  path(configs.script, configs.urlParams),
             'queueID':   id ~ '_queue'
         })|json_encode|raw }}, {
             onUploadSuccess: function(file, data, response) {
@@ -437,6 +437,7 @@
                     {% endif %}
 
                     $('#{{ id }}').val(value);
+                    $('#'+file.id).find('a').attr('href', data.remove);
                     $nbQueue--;
                 } else {
                     alert('Error');
@@ -445,9 +446,22 @@
             onSelect: function(file) {
                 $nbQueue++;
             },
+            onCancel: function(file) {
+                console.log(file);
+                alert("ok");
+            },
             onUploadError: function(file, errorCode, errorMsg, errorString) {
-                alert('error');
-            }
+                alert(errorMsg+' '+errorString);
+            },
+            onInit: function(uploadify) {
+                uploadify.wrapper.attr('style', '');
+                uploadify.button.addClass('btn btn-success btn-block pull-left').removeAttr('style');
+                uploadify.button.find('span').removeClass('uploadify-button-text');
+                $('<i class="fa fa-file-o m-right-xs"></i>').insertBefore(uploadify.button.find('span'));
+            },
+            buttonText: 'Wybierz plik',
+            removeCompleted: false,
+            width: '100%'
         });
 
     {% if configs.auto is not defined or configs.auto is sameas(false) %}

@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Genemu\Bundle\FormBundle\Gd\File\Image;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Upload Controller
  *
